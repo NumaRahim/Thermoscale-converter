@@ -1,0 +1,514 @@
+/* ── 1. Custom Properties */
+:root {
+  /* Colours */
+  --clr-bg: #f5f2ee;
+  --clr-espresso: #2b2320;
+  --clr-gold: #b8976a;
+  --clr-white: #ffffff;
+  --clr-input-bg: #f0ece7;
+  --clr-border: rgba(43, 35, 32, 0.1);
+  --clr-muted: rgba(43, 35, 32, 0.4);
+  --clr-muted-md: rgba(43, 35, 32, 0.55);
+
+  /* Shadow */
+  --shadow-card:
+    0 2px 24px rgba(43, 35, 32, 0.08), 0 1px 4px rgba(43, 35, 32, 0.06);
+  --shadow-input: inset 0 1px 3px rgba(43, 35, 32, 0.08);
+  --shadow-btn: 0 2px 8px rgba(43, 35, 32, 0.18);
+  --shadow-quick: 0 1px 6px rgba(43, 35, 32, 0.08);
+
+  /* Typography */
+  --font-mono: "DM Mono", "Courier New", monospace;
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  /* Spacing scale */
+  --sp-xs: 0.25rem; /*  4 px */
+  --sp-sm: 0.5rem; /*  8 px */
+  --sp-md: 1rem; /* 16 px */
+  --sp-lg: 1.5rem; /* 24 px */
+  --sp-xl: 2rem; /* 32 px */
+  --sp-2xl: 3rem; /* 48 px */
+
+  /* Radii */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-full: 999px;
+
+  /* Transitions */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 160ms;
+  --dur-base: 260ms;
+}
+
+/* ── 2. Reset & Box-model  */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── 3. Base */
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100dvh;
+  background-color: var(--clr-bg);
+  color: var(--clr-espresso);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-xl) var(--sp-md);
+}
+
+/* ── 4. Layout Wrapper  */
+.converter-wrapper {
+  width: 100%;
+  max-width: 520px;
+}
+
+/* ── 5. Page Header  */
+.page-header {
+  margin-bottom: var(--sp-xl);
+}
+
+.page-header__eyebrow {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.625rem; /* 10 px */
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--clr-muted);
+  margin-bottom: var(--sp-xs);
+}
+
+.page-header__title {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: clamp(1.75rem, 5vw, 2.25rem);
+  line-height: 1.1;
+  color: var(--clr-espresso);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1%;
+}
+
+.page-header__title span {
+  display: block;
+  color: var(--clr-gold);
+}
+
+/* ── 6. Main Card */
+.converter-card {
+  background: var(--clr-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: var(--sp-lg) var(--sp-lg) var(--sp-xl);
+  overflow: hidden;
+}
+
+/* ── 7. Section Label */
+.section-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--clr-muted);
+  margin-bottom: var(--sp-sm);
+}
+
+/* ── 8. Celsius Input Section */
+.input-section {
+  margin-bottom: var(--sp-sm);
+}
+
+.input-field-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* The number input */
+.celsius-input {
+  width: 100%;
+  padding: var(--sp-md) var(--sp-xl) var(--sp-md) var(--sp-md);
+  background: var(--clr-input-bg);
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-input);
+  font-family: var(--font-mono);
+  font-size: clamp(1.5rem, 4vw, 1.75rem);
+  font-weight: 500;
+  color: var(--clr-espresso);
+  outline: none;
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+  /* Hide browser default spin buttons */
+}
+
+.celsius-input::-webkit-outer-spin-button,
+.celsius-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.celsius-input:focus {
+  border-color: var(--clr-gold);
+  box-shadow:
+    var(--shadow-input),
+    0 0 0 3px rgba(184, 151, 106, 0.18);
+}
+
+/* Unit badge inside input */
+.input-unit {
+  position: absolute;
+  right: var(--sp-md);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--clr-muted-md);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ── 9. Convert Toggle Button ───────────────────────────────── */
+.convert-btn-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: var(--sp-md) 0;
+}
+
+.convert-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background: var(--clr-espresso);
+  border: none;
+  cursor: pointer;
+  box-shadow: var(--shadow-btn);
+  transition:
+    transform var(--dur-fast) var(--ease-out),
+    background var(--dur-fast) var(--ease-out);
+  color: var(--clr-white);
+}
+
+.convert-btn:hover {
+  background: var(--clr-gold);
+  transform: rotate(180deg);
+}
+
+.convert-btn:active {
+  transform: scale(0.92) rotate(180deg);
+}
+
+.convert-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ── 10. Result Section ─────────────────────────────────────── */
+.result-section {
+  margin-bottom: var(--sp-lg);
+}
+
+.fahrenheit-display {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-xs);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-xs);
+}
+
+.fahrenheit-value {
+  font-family: var(--font-mono);
+  font-size: clamp(2rem, 7vw, 3rem);
+  font-weight: 600;
+  color: var(--clr-espresso);
+  line-height: 1;
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+
+.fahrenheit-unit {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--clr-muted-md);
+  margin-left: 2px;
+}
+
+/* Comfort badge */
+.comfort-badge {
+  display: inline-block;
+  padding: var(--sp-xs) var(--sp-sm);
+  border-radius: var(--radius-full);
+  background: var(--clr-input-bg);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  color: var(--clr-muted-md);
+  margin-left: var(--sp-sm);
+  transition:
+    background var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out);
+}
+
+/* Badge colour variants */
+.comfort-badge[data-comfort="freezing"] {
+  background: #ebf4ff;
+  color: #3b82f6;
+}
+.comfort-badge[data-comfort="cold"] {
+  background: #eff6ff;
+  color: #60a5fa;
+}
+.comfort-badge[data-comfort="cool"] {
+  background: #f0fdf4;
+  color: #4ade80;
+}
+.comfort-badge[data-comfort="comfortable"] {
+  background: #f0fdf4;
+  color: #16a34a;
+}
+.comfort-badge[data-comfort="warm"] {
+  background: #fffbeb;
+  color: #d97706;
+}
+.comfort-badge[data-comfort="hot"] {
+  background: #fef3c7;
+  color: #b45309;
+}
+.comfort-badge[data-comfort="very-hot"] {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* ── 11. Divider ────────────────────────────────────────────── */
+.section-divider {
+  border: none;
+  border-top: 1px solid var(--clr-border);
+  margin: var(--sp-md) 0;
+}
+
+/* ── 12. Kelvin Row ─────────────────────────────────────────── */
+.kelvin-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.kelvin-value-group {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.kelvin-value {
+  font-family: var(--font-mono);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--clr-espresso);
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+
+.kelvin-unit {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--clr-muted-md);
+}
+
+/* ── 13. Quick Set Section ──────────────────────────────────── */
+.quick-set {
+  margin-top: var(--sp-xl);
+}
+
+.quick-set__label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--clr-muted);
+  margin-bottom: var(--sp-md);
+}
+
+.quick-set__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-sm);
+  list-style: none;
+}
+
+.quick-set__item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-xs);
+  padding: var(--sp-md) var(--sp-xs);
+  background: var(--clr-white);
+  border: 1.5px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  box-shadow: var(--shadow-quick);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+  /* Clickable button reset */
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: var(--clr-white);
+  font: inherit;
+}
+
+.quick-set__item:hover {
+  border-color: var(--clr-gold);
+  box-shadow: 0 4px 16px rgba(43, 35, 32, 0.12);
+  transform: translateY(-2px);
+}
+
+.quick-set__item:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.quick-set__item:focus-visible {
+  outline: 2px solid var(--clr-gold);
+  outline-offset: 2px;
+}
+
+.quick-set__icon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.quick-set__temp {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--clr-espresso);
+}
+
+.quick-set__name {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  color: var(--clr-muted);
+  letter-spacing: 0.05em;
+}
+
+/* ── 14. Formula Footer ─────────────────────────────────────── */
+.formula-footer {
+  margin-top: var(--sp-xl);
+  text-align: center;
+}
+
+.formula-footer p {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--clr-muted);
+  letter-spacing: 0.06em;
+}
+
+/* ── 15. Skeleton / Loading Animation ───────────────────────── */
+@keyframes skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.is-updating {
+  animation: skeleton-pulse 600ms ease-in-out;
+}
+
+/* ── 16. Responsive Breakpoints ─────────────────────────────── */
+
+/* Small mobile  ≤ 360 px */
+@media (max-width: 360px) {
+  body {
+    padding: var(--sp-lg) var(--sp-sm);
+  }
+
+  .converter-card {
+    padding: var(--sp-md) var(--sp-md) var(--sp-lg);
+    border-radius: var(--radius-md);
+  }
+
+  .quick-set__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .fahrenheit-display {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-xs);
+  }
+
+  .comfort-badge {
+    margin-left: 0;
+  }
+}
+
+/* Medium mobile  361 px – 480 px */
+@media (min-width: 361px) and (max-width: 480px) {
+  .quick-set__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Tablet  481 px – 768 px */
+@media (min-width: 481px) and (max-width: 768px) {
+  .converter-wrapper {
+    max-width: 480px;
+  }
+}
+
+/* Desktop  ≥ 1024 px */
+@media (min-width: 1024px) {
+  body {
+    padding: var(--sp-2xl) var(--sp-xl);
+  }
+
+  .converter-wrapper {
+    max-width: 540px;
+  }
+}
+
+/* Large desktop  ≥ 1440 px */
+@media (min-width: 1440px) {
+  html {
+    font-size: 17px;
+  }
+
+  .converter-wrapper {
+    max-width: 560px;
+  }
+}
+
+/* ── 17. Reduced Motion ─────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

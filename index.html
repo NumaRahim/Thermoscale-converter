@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A clean, precise Celsius to Fahrenheit temperature converter with Kelvin output, comfort labels, and quick-set presets."
+    />
+    <meta name="theme-color" content="#F5F2EE" />
+    <title>Temp Converter — Celsius to Fahrenheit</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./CSS/style.css" />
+  </head>
+
+  <body>
+    <div class="converter-wrapper">
+      <!-- ── Page Header  -->
+      <header class="page-header" role="banner">
+        <span class="page-header__eyebrow" aria-hidden="true">Utility</span>
+        <h1 class="page-header__title">
+          Thermoscale
+          <span>Converter</span>
+        </h1>
+      </header>
+      <!-- Main Converter Card -->
+      <main>
+        <article
+          class="converter-card"
+          aria-label="Temperature Converter"
+          role="region"
+        >
+          <!-- Input: Celsius -->
+          <section class="input-section" aria-labelledby="celsius-label">
+            <label id="celsius-label" class="section-label" for="celsius-input">
+              Celsius °C
+            </label>
+
+            <div class="input-field-wrapper">
+              <input
+                id="celsius-input"
+                class="celsius-input"
+                type="number"
+                inputmode="decimal"
+                autocomplete="off"
+                aria-describedby="celsius-hint"
+                placeholder="Input Celsius Value"
+              />
+              <span class="input-unit" aria-hidden="true">°C</span>
+            </div>
+            <span id="celsius-hint" class="sr-only">
+              Enter a temperature in Celsius to convert it to Fahrenheit and
+              Kelvin.
+            </span>
+          </section>
+
+          <!-- Convert button -->
+          <div class="convert-btn-wrapper" aria-hidden="true">
+            <button
+              class="convert-btn"
+              type="button"
+              id="swap-btn"
+              title="Swap — clears the input"
+              aria-label="Reset converter"
+            >
+              <!-- Down-arrow icon (SVG inline for zero HTTP cost) -->
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Output: Fahrenheit -->
+          <section class="result-section" aria-labelledby="fahrenheit-label">
+            <span id="fahrenheit-label" class="section-label">
+              Fahrenheit °F
+            </span>
+
+            <div class="fahrenheit-display">
+              <output
+                id="fahrenheit-output"
+                class="fahrenheit-value"
+                for="celsius-input"
+                aria-live="polite"
+                aria-atomic="true"
+              >
+              </output>
+              <span class="fahrenheit-unit" aria-hidden="true">°F</span>
+              <span
+                id="comfort-badge"
+                class="comfort-badge"
+                data-comfort="comfortable"
+                role="status"
+                aria-live="polite"
+                aria-atomic="true"
+              >
+                Comfortable
+              </span>
+            </div>
+          </section>
+
+          <!-- Divider -->
+          <hr class="section-divider" aria-hidden="true" />
+
+          <!-- Output: Kelvin -->
+          <section class="kelvin-row" aria-labelledby="kelvin-label">
+            <span
+              id="kelvin-label"
+              class="section-label"
+              style="margin-bottom: 0"
+            >
+              Kelvin
+            </span>
+            <div class="kelvin-value-group">
+              <output
+                id="kelvin-output"
+                class="kelvin-value"
+                for="celsius-input"
+                aria-live="polite"
+                aria-atomic="true"
+              >
+              </output>
+              <span class="kelvin-unit" aria-hidden="true">K</span>
+            </div>
+          </section>
+        </article>
+        <!-- /converter-card -->
+
+        <!-- ── Quick-Set Presets ──────────────────────────── -->
+        <section class="quick-set" aria-labelledby="quick-set-label">
+          <span id="quick-set-label" class="quick-set__label"> Quick Set </span>
+
+          <ul
+            class="quick-set__grid"
+            role="list"
+            aria-label="Temperature presets"
+          >
+            <li role="listitem">
+              <button
+                class="quick-set__item"
+                type="button"
+                id="preset-freezing"
+                data-celsius="0"
+                aria-label="Set to freezing point: 0°C"
+              >
+                <span class="quick-set__icon" aria-hidden="true">🧊</span>
+                <span class="quick-set__temp">0°</span>
+                <span class="quick-set__name">Freezing</span>
+              </button>
+            </li>
+
+            <li role="listitem">
+              <button
+                class="quick-set__item"
+                type="button"
+                id="preset-body"
+                data-celsius="37"
+                aria-label="Set to body temperature: 37°C"
+              >
+                <span class="quick-set__icon" aria-hidden="true">🩸</span>
+                <span class="quick-set__temp">37°</span>
+                <span class="quick-set__name">Body</span>
+              </button>
+            </li>
+
+            <li role="listitem">
+              <button
+                class="quick-set__item"
+                type="button"
+                id="preset-boiling"
+                data-celsius="100"
+                aria-label="Set to boiling point: 100°C"
+              >
+                <span class="quick-set__icon" aria-hidden="true">💧</span>
+                <span class="quick-set__temp">100°</span>
+                <span class="quick-set__name">Boiling</span>
+              </button>
+            </li>
+
+            <li role="listitem">
+              <button
+                class="quick-set__item"
+                type="button"
+                id="preset-baking"
+                data-celsius="180"
+                aria-label="Set to baking temperature: 180°C"
+              >
+                <span class="quick-set__icon" aria-hidden="true">🔥</span>
+                <span class="quick-set__temp">180°</span>
+                <span class="quick-set__name">Baking</span>
+              </button>
+            </li>
+          </ul>
+        </section>
+        <!-- /quick-set -->
+
+        <!-- ── Formula Footer ─────────────────────────────── -->
+        <footer class="formula-footer" role="contentinfo">
+          <p>
+            <abbr title="Fahrenheit">°F</abbr>
+            = (<abbr title="Celsius">°C</abbr> × 9/5) + 32
+          </p>
+        </footer>
+      </main>
+    </div>
+    <!-- /converter-wrapper -->
+
+    <!-- ── Screen-reader only utility ───────────────────── -->
+    <style>
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+    </style>
+    <script src="./Js/script.js"></script>
+  </body>
+</html>

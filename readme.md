@@ -99,6 +99,7 @@ This project demonstrates the practical use of:
 ## Author
 
 **Numa Rahim**  
-Software Engineer and Front-End Developer
+Software Engineer 
 
 ## License
+MIT License

@@ -4,7 +4,7 @@ A clean and responsive temperature conversion application built with **HTML, CSS
 
 ## Preview
 
-![ThermoScale Converter Preview](./assest/thermoscale-converter-preview.png)
+![ThermoScale Converter Preview](./assest/preview.png)
 
 ## Features
 

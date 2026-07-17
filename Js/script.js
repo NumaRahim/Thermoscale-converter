@@ -29,6 +29,12 @@ function convert() {
 }
 conversion.addEventListener("click", convert);
 
+celsiusInput.addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    convert();
+  }
+});
+
 //preset button logic
 function quicksetItems(event) {
   celsiusInput.value = event.currentTarget.dataset.celsius;

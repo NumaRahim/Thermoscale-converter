@@ -118,7 +118,8 @@ body {
 }
 
 /* ── 7. Section Label */
-.section-label {
+.section-label,
+.validation-error {
   display: block;
   font-family: var(--font-mono);
   font-size: 0.625rem;

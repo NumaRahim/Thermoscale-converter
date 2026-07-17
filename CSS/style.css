@@ -467,12 +467,15 @@ body {
 }
 
 /* Medium mobile  361 px – 480 px */
-@media (min-width: 361px) and (max-width: 480px) {
+@media (min-width: 320px) and (max-width: 480px) {
   .quick-set__grid {
-    grid-template-columns: repeat(4, 1fr);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
-
+.quick-set__item {
+  width: 100%;
+}
 /* Tablet  481 px – 768 px */
 @media (min-width: 481px) and (max-width: 768px) {
   .converter-wrapper {

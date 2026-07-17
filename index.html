@@ -40,6 +40,12 @@
             <label id="celsius-label" class="section-label" for="celsius-input">
               Celsius °C
             </label>
+            <span
+              class="validation-error"
+              id="validation-error"
+              aria-label="validation-error"
+              aria-live="polite"
+            ></span>
 
             <div class="input-field-wrapper">
               <input
@@ -49,7 +55,7 @@
                 inputmode="decimal"
                 autocomplete="off"
                 aria-describedby="celsius-hint"
-                placeholder="Input Celsius Value"
+                placeholder="Celsius Value"
               />
               <span class="input-unit" aria-hidden="true">°C</span>
             </div>
@@ -91,16 +97,6 @@
               >
               </output>
               <span class="fahrenheit-unit" aria-hidden="true">°F</span>
-              <span
-                id="comfort-badge"
-                class="comfort-badge"
-                data-comfort="comfortable"
-                role="status"
-                aria-live="polite"
-                aria-atomic="true"
-              >
-                Comfortable
-              </span>
             </div>
           </section>
 

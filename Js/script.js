@@ -5,18 +5,22 @@ const fahrenheitOutput = document.getElementById("fahrenheit-output");
 const kelvinOutput = document.getElementById("kelvin-output");
 
 const presetButtons = document.querySelectorAll(".quick-set__item");
+const validationError = document.getElementById("validation-error");
 
 function convert() {
   let celsius = parseFloat(celsiusInput.value);
-  if (Number.isNaN(celsius)) {
+  if (celsiusInput.value.trim() === "" || isNaN(celsius)) {
     fahrenheitOutput.textContent = "--";
     kelvinOutput.textContent = "--";
 
-    alert("Please enter a valid Celsius value.");
+    validationError.textContent = "Please enter a valid Celsius value.";
     celsiusInput.focus();
 
     return;
   }
+
+  validationError.textContent = "";
+
   let fahrenheit = (celsius * 9) / 5 + 32;
   let kelvin = celsius + 273.15;
 
